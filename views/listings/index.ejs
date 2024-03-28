@@ -1,0 +1,133 @@
+<% layout("/layouts/boilerplate") %> <!-- This uses boiler plate which I created in layouts folder --> 
+    <!-- <h3>All listings</h3> -->
+    <!-- <form method="GET" action="/listing/new">
+        <button>Create</button>
+    </form> -->
+    <!-- card using bootstrap & with row div I can place 3 cards in single row And giving class col to the card am giving custom styling in rows as row-cols-lg-3 to place 3 cards-->
+    <style> 
+    #filters{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter{
+      text-align: center;
+      margin-right: 3rem;
+      margin-top: 2rem;
+      opacity: 0.7;
+    }
+    .filter:hover{
+      opacity: 1.5;
+      cursor: pointer;
+    }
+    .filter a{
+      text-decoration: none;
+      color: black;
+    }
+    .filter P{
+      font-size: 0.85rem;
+    }
+
+    .filter i{
+      font-size: 1.15rem;
+    }
+    .tax-info{
+      display: none;
+    }
+    .tax-toggle{
+      border: 1px solid black;
+      border-radius: 1rem;
+      height: 3.rem;
+      padding: 1rem;
+      margin-left: 2rem;
+      display: flex;
+      align-items: center;
+    }
+    </style>
+    
+    <div id="filters">
+      <div class="filter">
+          <div><a href="/listing/hot"><i class="fa-solid fa-fire"></i></a></div>
+          <p>hot-spots</p>
+      </div>
+      <div class="filter">
+          <div><a href = "/listing/iconic"><i class="fa-solid fa-bed"></i></a></div>
+          <p>Iconic cities</p>
+      </div>
+      <div class="filter">
+          <div><a href="/listing/mountains"><i class="fa-solid fa-mountain"></i></a></div>
+          <p>Mountains</p>
+      </div>
+      <div class="filter">
+          <div><a href="/listing/castles"><i class="fa-brands fa-fort-awesome"></i></a></div>
+          <p>Castles</p>
+      </div>
+      <div class="filter">
+          <div><a href="/listing/camping"><i class="fa-solid fa-campground"></i></a></div>
+          <p>camping</p>
+      </div>
+      <div class="filter">
+        <div><a href="/listing/farms"><i class="fa-solid fa-tractor"></i></a></div>
+        <p>Farms</p>
+    </div>
+    <div class="filter">
+      <div><a href="/listing/dome"><i class="fa-solid fa-igloo"></i></a></div>
+      <p>Dome</p>
+    </div>
+    <div class="filter">
+      <div><a href="/listing/house"><i class="fa-solid fa-ship"></i></a></div>
+      <p>house boats</p>
+    </div>
+    <div class="filter">
+      <div><a href="/listing/beach"><i class="fa-solid fa-umbrella-beach"></i></a></div>
+      <p>beach</p>
+    </div>
+  
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+      </div>
+    </div>
+
+  </div>
+
+    <div class="row row-cols-lg-3 row-cols-md-3 mt-3" >
+      <% for (let listing of allListings){ %>
+        <a href="/listing/<%= listing._id %>" class="listing-link">
+          <div class="card col .listing-card">
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style = "height : 20rem">
+            <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <p class="card-text">
+               <b><%= listing.title %></b> 
+                <br>
+                &#8377; <%= listing.price.toLocaleString("en-in") %>/night      
+                <i class="tax-info">&nbsp;&nbsp;+18% GST</i>     
+              </p> 
+            </div>
+          </div>
+          <% } %>        
+        </a>      
+    </div>   
+
+<script>
+  let taxswitch = document.getElementById("flexSwitchCheckDefault");
+  taxswitch.addEventListener("click",()=>{
+    let taxinfo = document.getElementsByClassName("tax-info");   //as i have done for all listings I would get a grp so to access each o have to iterate
+    for (info of taxinfo){
+      if(info.style.display != "inline"){
+        info.style.display = "inline";
+      }
+      else{
+        info.style.display = "none";
+      }      
+    }
+  })
+</script>
+
+    <!-- <ul>
+       <!--  for (let listing of allListings){ %> -->
+        <!-- <li><a href="/listing/= listing._id">listing.title </a></li> -->
+         <!-- } -->  
+     
